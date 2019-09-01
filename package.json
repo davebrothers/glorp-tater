@@ -1,0 +1,23 @@
+{
+  "name": "glorp-tater",
+  "version": "0.0.0",
+  "description": "glorp tater",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "deebs",
+  "license": "MIT",
+  "dependencies": {
+    "navigo": "^7.1.2"
+  },
+  "devDependencies": {
+    "browserify": "^16.5.0",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
+  }
+}
