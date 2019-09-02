@@ -1,8 +1,8 @@
 var babel = require("gulp-babel");
+var connect = require("gulp-connect");
 var del = require("del");
 var gulp = require("gulp");
 var rename = require("gulp-rename");
-var server = require("gulp-webserver");
 var sourcemaps = require("gulp-sourcemaps");
 var terser = require("gulp-terser");
 
@@ -23,12 +23,12 @@ gulp.task("build:scripts", () => {
         ]
       })
     )
-    .pipe(terser(
-      {
+    .pipe(
+      terser({
         keep_fnames: false,
         mangle: true
-      }
-    ))
+      })
+    )
     .pipe(rename(path => (path.basename += ".min")))
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest("./dist/scripts"));
@@ -42,14 +42,13 @@ gulp.task("copy:markup", function() {
   return gulp.src("./src/index.html").pipe(gulp.dest("./dist"));
 });
 
-gulp.task("serve:host", function() {
-  gulp.src("dist").pipe(
-    server({
-      livereload: true,
-      port: 8000
-    })
-  );
-});
+gulp.task("serve:host", () =>
+  connect.server({
+    livereload: true,
+    port: 8000,
+    root: "./dist"
+  })
+);
 
 gulp.task("serve:watch", function() {
   return gulp.watch("./src/**/*", gulp.parallel("build"));
