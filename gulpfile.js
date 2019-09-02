@@ -36,13 +36,11 @@ gulp.task("build:scripts", () =>
     .pipe(gulp.dest("./dist/scripts"))
 );
 
-gulp.task("clean:all", function() {
-  return del("dist/*");
-});
+gulp.task("clean:all", () => del("dist/*"));
 
-gulp.task("copy:markup", function() {
-  return gulp.src("./src/index.html").pipe(gulp.dest("./dist"));
-});
+gulp.task("copy:markup", () =>
+  gulp.src("./src/index.html").pipe(gulp.dest("./dist"))
+);
 
 gulp.task("serve:host", () =>
   connect.server({
@@ -54,9 +52,9 @@ gulp.task("serve:host", () =>
 
 gulp.task("serve:reload", () => gulp.src("./dist").pipe(connect.reload()));
 
-gulp.task("serve:watch", function() {
-  return gulp.watch("./src/**/*", gulp.series(["build", "serve:reload"]));
-});
+gulp.task("serve:watch", () =>
+  gulp.watch("./src/**/*", gulp.series(["build", "serve:reload"]))
+);
 
 gulp.task(
   "build",
