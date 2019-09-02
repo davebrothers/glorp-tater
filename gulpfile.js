@@ -26,7 +26,9 @@ gulp.task("build:scripts", () =>
     .pipe(
       terser({
         keep_fnames: false,
-        mangle: true
+        mangle: {
+          toplevel: true
+        }
       })
     )
     .pipe(rename(path => (path.basename += ".min")))
