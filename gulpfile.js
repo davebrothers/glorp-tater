@@ -6,8 +6,8 @@ var rename = require("gulp-rename");
 var sourcemaps = require("gulp-sourcemaps");
 var terser = require("gulp-terser");
 
-gulp.task("build:scripts", () => {
-  return gulp
+gulp.task("build:scripts", () =>
+  gulp
     .src("./src/scripts/*.js")
     .pipe(gulp.dest("./dist/scripts/"))
     .pipe(sourcemaps.init())
@@ -31,8 +31,8 @@ gulp.task("build:scripts", () => {
     )
     .pipe(rename(path => (path.basename += ".min")))
     .pipe(sourcemaps.write("./"))
-    .pipe(gulp.dest("./dist/scripts"));
-});
+    .pipe(gulp.dest("./dist/scripts"))
+);
 
 gulp.task("clean:all", function() {
   return del("dist/*");
@@ -50,8 +50,10 @@ gulp.task("serve:host", () =>
   })
 );
 
+gulp.task("serve:reload", () => gulp.src("./dist").pipe(connect.reload()));
+
 gulp.task("serve:watch", function() {
-  return gulp.watch("./src/**/*", gulp.parallel("build"));
+  return gulp.watch("./src/**/*", gulp.series(["build", "serve:reload"]));
 });
 
 gulp.task(
@@ -59,8 +61,9 @@ gulp.task(
   gulp.series(["clean:all", gulp.parallel(["build:scripts", "copy:markup"])])
 );
 
-gulp.task("default", gulp.parallel(["build"]));
 gulp.task(
   "serve",
   gulp.series(["build", gulp.parallel(["serve:host", "serve:watch"])])
 );
+
+gulp.task("default", gulp.parallel(["build"]));
