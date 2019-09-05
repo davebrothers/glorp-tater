@@ -9,7 +9,6 @@ var terser = require("gulp-terser");
 gulp.task("build:scripts", () =>
   gulp
     .src("./src/scripts/*.js")
-    .pipe(gulp.dest("./dist/scripts/"))
     .pipe(sourcemaps.init())
     .pipe(
       babel({
